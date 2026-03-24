@@ -1,0 +1,8 @@
+f = open('cloudformation-database-stack.yaml', 'r')
+c = f.read()
+f.close()
+c = c.replace('          ServerSideEncryptionConfiguration:\n        - ServerSideEncryptionByDefault:', '        ServerSideEncryptionConfiguration:\n          - ServerSideEncryptionByDefault:')
+f = open('cloudformation-database-stack.yaml', 'w')
+f.write(c)
+f.close()
+print('Done!')
