@@ -1,1 +1,1 @@
-{"statusCode": 200, "body": "{\"message\": \"Data loaded!\", \"tables\": [\"audit_logs\", \"controls\", \"frameworks\", \"risks\"]}"}
+{"statusCode": 200, "body": "{\"message\": \"Compliance monitoring completed\", \"compliance_percentage\": 0, \"non_compliant_rules\": 0}"}
