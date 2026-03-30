@@ -78,3 +78,102 @@ The platform supports mapping controls to the following six frameworks:
 ---
 
 ## Repository Structure
+
+
+
+GRC208-AWS-Capstone-Emmanuella-Ebubechukwu/
+├── README.md                              # This file
+├── DEPLOYMENT_GUIDE.md                    # Step-by-step deployment walkthrough
+├── BEST_PRACTICES.md                      # AWS and security best practices applied
+├── AWS_SERVICES_GUIDE.md                  # Per-service documentation
+├── architecture_design.md                 # System architecture and design decisions
+├── PROJECT_MANIFEST.md                    # Complete file inventory
+├── DELIVERY_SUMMARY.md                    # Capstone delivery evidence
+├── cloudformation-network-stack.yaml      # Network infrastructure IaC
+├── cloudformation-database-stack.yaml     # Database infrastructure IaC
+├── lambda_compliance_monitor.py           # Compliance monitoring Lambda
+├── grc-dashboard.jsx                      # React GRC dashboard
+├── grc-dashboard.css                      # Dashboard styling
+├── test_cases.py                          # 22-test validation suite
+├── sample_data.sql                        # Database initialisation data
+├── requirements.txt                       # Python dependencies
+├── deploy.sh                              # Deployment automation script
+├── architecture-diagram.md               # Architecture diagrams
+├── .gitignore                             # Git configuration
+└── screenshots/                           # 27 deployment evidence screenshots
+
+
+---
+
+## Quick Start
+
+### Prerequisites
+- AWS Academy Learner Lab access (or AWS account with appropriate permissions)
+- AWS CloudShell (no local installation required)
+
+### Deployment Steps
+
+```bash
+# 1. Clone this repository into CloudShell
+git clone https://github.com/EMMANUELLAEBUBECHUKWU/GRC208-AWS-Capstone-Emmanuella-Ebubechukwu.git
+cd GRC208-AWS-Capstone-Emmanuella-Ebubechukwu
+
+# 2. Deploy network infrastructure
+aws cloudformation create-stack \
+  --stack-name grc-capstone-network-stack \
+  --template-body file://cloudformation-network-stack.yaml \
+  --parameters ParameterKey=EnvironmentName,ParameterValue=grc-capstone \
+  --region us-east-1
+
+# 3. Deploy database infrastructure
+aws cloudformation create-stack \
+  --stack-name grc-capstone-database-stack \
+  --template-body file://cloudformation-database-stack.yaml \
+  --parameters \
+    ParameterKey=EnvironmentName,ParameterValue=grc-capstone \
+    ParameterKey=DBUsername,ParameterValue=grcadmin \
+    ParameterKey=DBPassword,ParameterValue=YourSecurePassword \
+  --capabilities CAPABILITY_IAM \
+  --region us-east-1
+
+
+For the complete five-phase deployment walkthrough, see DEPLOYMENT_GUIDE.md.
+
+Test Results
+All 22 unit tests pass. Run the test suite with:
+
+python3 test_cases.py
+
+
+
+
+|Category             |Tests |Result    |
+|---------------------|------|----------|
+|Compliance Monitoring|3     |✓ Pass    |
+|Risk Assessment      |3     |✓ Pass    |
+|Data Validation      |4     |✓ Pass    |
+|Database Operations  |3     |✓ Pass    |
+|Compliance Frameworks|2     |✓ Pass    |
+|Audit Logging        |3     |✓ Pass    |
+|Report Generation    |2     |✓ Pass    |
+|Integration Workflows|2     |✓ Pass    |
+|**Total**            |**22**|**✓ 100%**|
+
+Known Constraints
+AWS Config Delivery Channel: The AWS Config delivery channel to S3 could not be activated in the AWS Academy Learner Lab environment. The Learner Lab LabRole does not have the S3 write permissions that AWS Config requires for delivery channel configuration. The configuration recorder (grc-config-recorder) exists and is set up for 596 resource types with continuous recording. This is a documented platform constraint specific to the Learner Lab IAM restrictions, not a configuration error.
+
+Learning Outcomes
+This capstone project demonstrates practical competency in:
+	∙	Designing and deploying multi-tier cloud architectures on AWS
+	∙	Writing Infrastructure as Code using AWS CloudFormation
+	∙	Building serverless compliance automation with AWS Lambda
+	∙	Implementing audit logging and monitoring with CloudTrail and CloudWatch
+	∙	Mapping technical controls to GRC compliance frameworks
+	∙	Deploying and managing managed database services on AWS
+
+Author
+Emmanuella EbubechukwuGRC Engineering (CGRCE) | ICDFAStudent ID: 2025/GRC/10041grc2510041@students.icdfa.edu.ng
+Submitted: April, 2026
+
+
+---
